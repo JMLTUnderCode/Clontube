@@ -1,0 +1,1 @@
+SELECT * FROM `login_registro_bd`.`usuarios` LIMIT 100;

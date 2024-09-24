@@ -1,4 +1,4 @@
-# **Proyecto_Ñutube**
+# **Proyecto - Ñutube (Clon de Youtube)**
 ### Desarrolladores:
   * Junior Lara
 

@@ -142,7 +142,21 @@ web: gunicorn backend.wsgi
 
 ---
 
-## 10. **Variables de entorno en Render**
+## 10. **Campos de configuracion en render**
+
+Build Command
+```sh
+pip install -r requirements.txt
+```
+
+Start Command:
+```sh
+gunicorn backend.wsgi
+```
+
+---
+
+## 11. **Variables de entorno en Render**
 
 En la configuración del servicio web en Render, agrega:
 
@@ -155,7 +169,7 @@ En la configuración del servicio web en Render, agrega:
 
 ---
 
-## 11. **Migraciones y despliegue**
+## 12. **Migraciones y despliegue**
 
 Antes de desplegar, ejecuta:
 

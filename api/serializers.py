@@ -43,10 +43,22 @@ class UserSerializer(serializers.ModelSerializer):
         return value
     
     def validate(self, data):
-        if User.objects.filter(username=data['username']).exists():
-            raise serializers.ValidationError({'username': 'El nombre de usuario ya está registrado.'})
-        if User.objects.filter(email=data['email']).exists():
-            raise serializers.ValidationError({'email': 'El correo electrónico ya está registrado.'})
+        username = data.get('username')
+        email = data.get('email')
+
+        # Validar unicidad de username solo si se está creando (no en update)
+        if self.instance is None and username:
+            if User.objects.filter(username=username).exists():
+                raise serializers.ValidationError({'username': 'El nombre de usuario ya está registrado.'})
+
+        # Validar unicidad de email
+        if email:
+            qs = User.objects.filter(email=email)
+            if self.instance:
+                qs = qs.exclude(pk=self.instance.pk)
+            if qs.exists():
+                raise serializers.ValidationError({'email': 'El correo electrónico ya está registrado.'})
+
         return data
     
     class Meta:

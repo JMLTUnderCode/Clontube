@@ -169,9 +169,9 @@ En la configuración del servicio web en Render, agrega:
 
 ---
 
-## 12. **Migraciones y despliegue**
+## 12. **Migraciones**
 
-Antes de desplegar, ejecuta:
+Si en el `.env` se tiene `RENDER=1` entonces los settings.py toman los valores de la instancia de la base de datos desde el mismo archivo `.env`. Por el contrario, si se tiene `RENDER=0` entonces la migracion se hara en local.
 
 ```sh
 python3 manage.py makemigrations
@@ -180,6 +180,8 @@ python3 manage.py migrate
 
 ---
 
-## 10. **Verifica el endpoint**
+## 13. **Despliegue en local**
 
-Cuando Render despliegue, accede a `https://<tu-app>.onrender.com/api/users/` para ver el endpoint REST.
+```sh
+python3 manage.py runserver
+```

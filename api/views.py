@@ -7,6 +7,7 @@ from .models import User
 from .serializers import UserSerializer
 from django.http import Http404
 from django.contrib.auth import authenticate
+from django.db.models import Q
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -220,9 +221,7 @@ class CustomLoginView(APIView):
             }, status=400)
 
         # Buscar usuario por username o email
-        user = User.objects.filter(username=identifier).first()
-        if not user:
-            user = User.objects.filter(email=identifier).first()
+        user = User.objects.filter(Q(username=identifier) | Q(email=identifier)).first()
         if not user:
             return Response({
                 "success": False,

@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
+    role = serializers.CharField(read_only=True)  # Solo lectura
+
     password = serializers.CharField(
         write_only=True,
         min_length=8,
@@ -76,7 +78,7 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
-
+    
     class Meta:
         model = User
         fields = ['id', 'full_name', 'username', 'email', 'password', 'role']

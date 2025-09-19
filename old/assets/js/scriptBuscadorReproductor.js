@@ -2,7 +2,7 @@ $(document).ready(function (){
 
     function buscarVideo(palabra_clave){
         var busqueda_general = {
-            key : "AIzaSyC89btJAIgsoeQzWQ3teU__ymbk-Vvyzkc",
+            key : "GOOGLE_API_KEY",
             maxResults : 12,
             part : "snippet",
             q : palabra_clave

@@ -185,3 +185,26 @@ python3 manage.py migrate
 ```sh
 python3 manage.py runserver
 ```
+
+## 14. **Configuración de JWT**
+
+En tu entorno virtual, ejecuta:
+```sh
+pip install djangorestframework-simplejwt
+```
+
+Agrega la autenticación JWT en tu configuración de Django REST Framework en `settings.py`:
+
+````python
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+````
+
+## 15. **Testing**
+En tu entorno virtual, ejecuta:
+```sh
+python3 manage.py test api
+```

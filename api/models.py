@@ -22,6 +22,11 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
+    ROLE_CHOICES = (
+        ('admin', 'Administrador'),
+        ('user', 'Usuario'),
+    )
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
     full_name = models.CharField(
         max_length=50,
         validators=[

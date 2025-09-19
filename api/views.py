@@ -105,6 +105,14 @@ class UserViewSet(viewsets.ModelViewSet):
                 "success": False,
                 "message": f"El usuario '{username}' no existe."
             }, status=400)
+
+        # Solo el admin puede eliminar cualquier usuario, el usuario solo puede eliminarse a sí mismo
+        if request.user.role != 'admin' and request.user.username != instance.username:
+            return Response({
+                "success": False,
+                "message": "No tienes permisos para eliminar este usuario."
+            }, status=403)
+
         username = instance.username
         instance.delete()
         return Response({
@@ -159,15 +167,20 @@ class UserViewSet(viewsets.ModelViewSet):
                 "message": f"El usuario '{username}' no existe."
             }, status=400)
 
+        # Solo el admin puede editar cualquier usuario, el usuario solo puede editarse a sí mismo
+        if request.user.role != 'admin' and request.user.username != instance.username:
+            return Response({
+                "success": False,
+                "message": "No tienes permisos para modificar este usuario."
+            }, status=403)
+
         data = request.data.copy()
-        # Prohibir actualización de username
         if 'username' in data and data['username'] != instance.username:
             return Response({
                 "success": False,
                 "message": "No está permitido cambiar el nombre de usuario."
             }, status=400)
 
-        # Validar email único
         new_email = data.get('email')
         if new_email and new_email != instance.email:
             if User.objects.filter(email=new_email).exclude(username=instance.username).exists():

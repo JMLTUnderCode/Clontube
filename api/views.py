@@ -1,9 +1,13 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
 from .serializers import UserSerializer
 from django.http import Http404
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from django.contrib.auth import authenticate
+from django.db.models import Q
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -201,4 +205,49 @@ class UserViewSet(viewsets.ModelViewSet):
             "success": True,
             "user": serializer.data,
             "message": "Usuario actualizado exitosamente."
+        }, status=200)
+
+class CustomLoginView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        identifier = request.data.get('identifier')
+        password = request.data.get('password')
+
+        if not identifier or not password:
+            return Response({
+                "success": False,
+                "message": "Debes proporcionar usuario/correo y contraseña."
+            }, status=400)
+
+        # Buscar usuario por username o email
+        user = User.objects.filter(Q(username=identifier) | Q(email=identifier)).first()
+        if not user:
+            return Response({
+                "success": False,
+                "message": "Credenciales inválidas o cuenta inactiva."
+            }, status=401)
+
+        # Autenticar usuario
+        user_auth = authenticate(username=user.username, password=password)
+        if not user_auth or not user_auth.is_active:
+            return Response({
+                "success": False,
+                "message": "Credenciales inválidas o cuenta inactiva."
+            }, status=401)
+
+        # Generar tokens JWT
+        refresh = RefreshToken.for_user(user_auth)
+        return Response({
+            "success": True,
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+            "user": {
+                "id": user_auth.id,
+                "username": user_auth.username,
+                "email": user_auth.email,
+                "full_name": user_auth.full_name,
+                "role": user_auth.role
+            },
+            "message": "Inicio de sesión exitoso."
         }, status=200)

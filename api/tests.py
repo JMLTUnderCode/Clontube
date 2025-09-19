@@ -98,3 +98,70 @@ class UserAPITest(APITestCase):
         self.assertEqual(response.status_code, 403)
         self.assertFalse(response.data['success'])
         self.assertIn("no tienes permisos", response.data['message'].lower())
+
+class LoginAPITest(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            full_name="Login User",
+            username="loginuser",
+            email="loginuser@email.com",
+            password="LoginPass123"
+        )
+        self.user.save()
+        self.url = reverse('custom_login')
+    
+    def test_login_with_username(self):
+        data = {
+            "identifier": "loginuser",
+            "password": "LoginPass123"
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.data['success'])
+        self.assertIn('access', response.data)
+        self.assertIn('refresh', response.data)
+        self.assertEqual(response.data['user']['username'], data['identifier'])
+     
+    def test_login_with_email(self):
+        data = {
+            "identifier": "loginuser@email.com",
+            "password": "LoginPass123"
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.data['success'])
+        self.assertIn('access', response.data)
+        self.assertIn('refresh', response.data)
+        self.assertEqual(response.data['user']['email'], data['identifier'])
+    
+    def test_login_invalid_password(self):
+        data = {
+            "identifier": "loginuser",
+            "password": "WrongPass"
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, 401)
+        self.assertFalse(response.data['success'])
+        self.assertIn("credenciales inválidas", response.data['message'].lower())
+    
+    def test_login_user_not_found(self):
+        data = {
+            "identifier": "nonexistent",
+            "password": "SomePass"
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, 401)
+        self.assertFalse(response.data['success'])
+        self.assertIn("credenciales inválidas", response.data['message'].lower())
+    
+    def test_login_missing_fields(self):
+        data = {
+            "identifier": "",
+            "password": ""
+        }
+        response = self.client.post(self.url, data, format='json')
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(response.data['success'])
+        self.assertIn("debes proporcionar", response.data['message'].lower())
+        self.assertIn("contraseña", response.data['message'].lower())
+        self.assertIn("usuario/correo", response.data['message'].lower())

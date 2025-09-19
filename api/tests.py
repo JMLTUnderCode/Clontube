@@ -150,9 +150,9 @@ class LoginAPITest(APITestCase):
             "password": "SomePass"
         }
         response = self.client.post(self.url, data, format='json')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 401)
         self.assertFalse(response.data['success'])
-        self.assertIn("no encontrado", response.data['message'].lower())
+        self.assertIn("credenciales inválidas", response.data['message'].lower())
     
     def test_login_missing_fields(self):
         data = {

@@ -226,8 +226,8 @@ class CustomLoginView(APIView):
         if not user:
             return Response({
                 "success": False,
-                "message": "Usuario o correo no encontrado."
-            }, status=400)
+                "message": "Credenciales inválidas o cuenta inactiva."
+            }, status=401)
 
         # Autenticar usuario
         user_auth = authenticate(username=user.username, password=password)

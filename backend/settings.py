@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if os.environ.get('RENDER', None):
+if os.environ.get('RENDER') == 'true':
     # Configuración para Render
     DATABASES = {
         'default': {

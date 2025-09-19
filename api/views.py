@@ -3,11 +3,17 @@ from rest_framework.response import Response
 from .models import User
 from .serializers import UserSerializer
 from django.http import Http404
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
+
+    def get_permissions(self):
+        if self.action == 'create':
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
     # Crear un nuevo usuario
     # route: POST /api/users/

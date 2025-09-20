@@ -1,7 +1,7 @@
 
-export function Atributions() {
+export function Attributions() {
     return (
-        <div className="Atributions">
+        <div className="Attributions">
             <a href="https://lordicon.com/">Icons by Lordicon.com</a>
         </div>
     );

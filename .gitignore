@@ -207,3 +207,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Local History for Visual Studio Code
+.history/
+
+# Node modules
+node_modules/

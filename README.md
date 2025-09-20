@@ -10,7 +10,7 @@ Este proyecto consta de realizar un replica de la plataforma de streaming Youtub
 
 ### Frontend
 
-Se desarrollará en ReactJS usando despliegue de GithubPages.
+Se desarrollará con Vite + ReactJS + TS usando despliegue de GithubPages.
 
 ### Backend
 

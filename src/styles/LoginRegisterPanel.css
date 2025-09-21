@@ -8,7 +8,7 @@
     border-radius: 18px;
     background: rgba(30, 30, 30, 0.95);
     box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    min-height: 600px;
+    min-height: 620px;
     height: auto;
     overflow: visible;
 }
@@ -37,19 +37,59 @@
     z-index: 1;
 }
 
-input {
+.input-group {
+    position: relative;
+    margin-top: 24px;
     width: 100%;
-    margin-top: 20px;
+}
+
+.input-group input {
+    width: 100%;
     padding: 10px;
     border: none;
     background: rgba(124, 118, 118, 0.3);
     outline: none;
     border-radius: 10px;
     color: white;
+    font-size: 16px;
 }
 
-::placeholder{
+.input-group label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
     color: rgb(210, 190, 190);
+    font-size: 16px;
+    pointer-events: none;
+    transition:
+        top 0.3s cubic-bezier(0.175, 0.685, 0.320, 1.275),
+        font-size 0.3s cubic-bezier(0.175, 0.685, 0.320, 1.275),
+        color 0.3s,
+        transform 0.3s cubic-bezier(0.175, 0.685, 0.320, 1.275);
+}
+
+/* Flotar arriba cuando el input está enfocado o tiene contenido */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: -12px;
+    transform: none;
+    font-size: 14px;
+    color: #fff;
+    background: transparent;
+    padding: 0 4px;
+}
+
+.btn-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    outline: none;
 }
 
 .btn {

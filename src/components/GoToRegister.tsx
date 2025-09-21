@@ -6,10 +6,10 @@ export function GoToRegister() {
         showRegister();
     };
     return (
-        <div className="caja-fondo-registro">
+        <div className="ctn-goto">
             <h3>¿Aún no tienes una cuenta?</h3>
             <p>¡Regístrate para disfrutar de ClonTube!</p>
-            <button id="btn-registrarse" onClick={handleClick}>Registrarse</button>
+            <button className="btn" onClick={handleClick}>Registrarse</button>
         </div>
     );
 };

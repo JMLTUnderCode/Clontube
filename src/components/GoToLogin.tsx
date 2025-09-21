@@ -6,10 +6,10 @@ export function GoToLogin() {
     };
 
     return (
-        <div className="caja-fondo-login">
+        <div className="ctn-goto">
             <h3>¿Ya tienes una cuenta?</h3>
             <p>¡Inicia sesión y disfruta de ClonTube!</p>
-            <button id="btn-iniciar-seccion" onClick={handleClick} >Iniciar ÑuTube</button>
+            <button className="btn" onClick={handleClick} >Iniciar ClonTube</button>
         </div>
     );
 };

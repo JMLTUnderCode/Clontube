@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body{
+    background-image: url(./login-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+main{
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+}
+
+.fondo-logotipo{
+    background-color: black;
+    border-radius: 15px;
+    max-width: fit-content;
+    box-align: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.fondo-logotipo h2{
+    color: white;
+    align-content: center;
+    padding-right: 20px;
+}
+
+.logotipo {
+    width: 200px;
+    height: 150px;
+    padding: 15px;
+}
+
+.logotipo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 25%;
+}

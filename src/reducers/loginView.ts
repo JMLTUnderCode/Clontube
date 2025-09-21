@@ -44,14 +44,6 @@ export function loginViewReducer(
 ): LoginViewState {
     if (!action || !action.type) return state;
 
-    if (action.type === 'SET_LOGIN_VIEW' && state.view === 'login') {
-        return state;
-    }
-
-    if (action.type === 'SET_REGISTER_VIEW' && state.view === 'register') {
-        return state;
-    }
-
     let newState = state;
     if (action.type === 'SET_LOGIN_VIEW') {
         const { payload } = action;
@@ -80,6 +72,6 @@ export function loginViewReducer(
         };
     }
     
-    updateLocalStorageLoginView(newState);
+    //updateLocalStorageLoginView(newState);
     return newState;
 };

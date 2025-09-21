@@ -80,6 +80,25 @@
     padding: 0 4px;
 }
 
+.input-error-popup {
+    position: absolute;
+    min-width: 120px;
+    background: black;
+    color: #e74c3c;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    padding: 6px 10px;
+    font-size: 13px;
+    z-index: 10;
+    white-space: pre-line;
+    text-align: left;
+    pointer-events: none;
+}
+
+.input-error {
+    background-color: #630a0066 !important;
+}
+
 .btn-eye {
     position: absolute;
     right: 12px;

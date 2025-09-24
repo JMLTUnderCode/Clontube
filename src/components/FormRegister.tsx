@@ -17,7 +17,7 @@ export function FormRegister() {
 
     useEffect(() => {
         setRegisterFields({ full_name, username, email });
-    }, [ setRegisterFields, full_name, username, email ]);
+    }, [setRegisterFields, full_name, username, email]);
 
     function handleEmailBlur() {
         if (email && confirmEmail && email !== confirmEmail) {

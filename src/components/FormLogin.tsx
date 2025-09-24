@@ -10,7 +10,7 @@ export function FormLogin() {
 
     useEffect(() => {
         setLoginFields({ identifier });
-    }, [ setLoginFields, identifier ]);
+    }, [setLoginFields, identifier]);
 
     return (
         <form className="login-form">

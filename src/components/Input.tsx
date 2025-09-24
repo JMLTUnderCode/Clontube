@@ -20,20 +20,20 @@ export function Input({ type, label, field, error, onChange, onBlur } : InputPro
     };
 
     const typeInput = type === 'PASSWORD' ? showPassword ? 'text' : 'password' : 'text';
-
+    const id = useId();
     return (
         <div className="input-group">
             <input
                 className={error ? 'input-error' : ''}
                 type={typeInput}
-                id={useId()}
+                id={id}
                 value={field}
                 onChange={e => onChange(e.target.value)}
                 onBlur={onBlur}
                 required
                 placeholder=" "
             />
-            <label htmlFor={field}>{label}</label>
+            <label htmlFor={id}>{label}</label>
             { type === 'PASSWORD' && 
                 <button
                     type="button"

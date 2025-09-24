@@ -1,30 +1,39 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { loginViewReducer, loginViewState } from '../reducers/loginView';
 import { LoginViewContext } from '../contexts/loginViewContext';
+import type { Register, Login } from '../utils/types';
 
 function useLoginViewReducer() {
     const [state, dispatch] = React.useReducer(loginViewReducer, loginViewState);
 
-    const showLogin = (registerFields?: Partial<typeof state.registerFields>) => {
-        dispatch({ type: 'SET_LOGIN_VIEW', payload: registerFields || {} });
-    }
+    const showLogin = useCallback(() => {
+        dispatch({ type: 'SET_LOGIN_VIEW', payload: state.registerFields });
+    }, [state.registerFields]);
 
-    const showRegister = (loginFields?: Partial<typeof state.loginFields>) => {
-        dispatch({ type: 'SET_REGISTER_VIEW', payload: loginFields || {} });
-    }
+    const setLoginFields = useCallback((loginFields: Login) => {
+        dispatch({ type: 'SET_LOGIN_FIELDS', payload: loginFields });
+    }, []);
 
-    const clearFields = () => {
+    const showRegister = useCallback(() => {
+        dispatch({ type: 'SET_REGISTER_VIEW', payload: state.loginFields });
+    }, [state.loginFields]);
+
+    const setRegisterFields = useCallback((registerFields: Register) => {
+        dispatch({ type: 'SET_REGISTER_FIELDS', payload: registerFields });
+    }, []);
+
+    const clearFields = useCallback(() => {
         dispatch({ type: 'RESET_FIELDS' });
-    }
+    }, []);
 
-    return { state, showLogin, showRegister, clearFields };
+    return { state, showLogin, setLoginFields, showRegister, setRegisterFields, clearFields };
 }
 
 export function LoginViewProvider({ children }: { children: React.ReactNode }) {
-    const { state, showLogin, showRegister, clearFields } = useLoginViewReducer();
+    const { state, showLogin, showRegister, setLoginFields, setRegisterFields, clearFields } = useLoginViewReducer();
 
     return (
-        <LoginViewContext.Provider value={{ LOGIN_VIEW_STATE: state, showLogin, showRegister, clearFields }}>
+        <LoginViewContext.Provider value={{ LOGIN_VIEW_STATE: state, showLogin, setLoginFields, showRegister, setRegisterFields, clearFields }}>
             {children}
         </LoginViewContext.Provider>
     );

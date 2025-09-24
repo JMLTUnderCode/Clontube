@@ -34,7 +34,9 @@ export function updateLocalStorageLoginView(state: LoginViewState) {
 
 export const STATE_ACTION_TYPES = {
     SET_LOGIN_VIEW: 'SET_LOGIN_VIEW',
+    SET_LOGIN_FIELDS: 'SET_LOGIN_FIELDS',
     SET_REGISTER_VIEW: 'SET_REGISTER_VIEW',
+    SET_REGISTER_FIELDS: 'SET_REGISTER_FIELDS',
     RESET_FIELDS: 'RESET_FIELDS',
 };
 
@@ -54,12 +56,27 @@ export function loginViewReducer(
         };
     }
 
+    if (action.type === 'SET_LOGIN_FIELDS') {
+        const { payload } = action;
+        newState = { 
+            ...state, 
+            loginFields: { ...state.loginFields, ...payload } 
+        };
+    }
     if (action.type === 'SET_REGISTER_VIEW') {
         const { payload } = action;
         newState = { 
             ...state, 
             view: 'register' as ViewType,
             loginFields: { ...state.loginFields, ...payload }
+        };
+    }
+
+    if (action.type === 'SET_REGISTER_FIELDS') {
+        const { payload } = action;
+        newState = { 
+            ...state, 
+            registerFields: { ...state.registerFields, ...payload } 
         };
     }
 

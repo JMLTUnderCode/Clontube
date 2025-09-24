@@ -1,11 +1,11 @@
 import './styles/App.css'
-
+import { StartPage } from './pages/StartPage';
 import { Footer } from './components/Footer';
 
 export function App() {
     return (
         <div className="App">
-            <h1>Clontube Project</h1>
+            <StartPage />
             <Footer />
         </div>
     );

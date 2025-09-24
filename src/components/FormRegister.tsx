@@ -3,7 +3,7 @@ import { useLoginView } from '../hooks/useLoginView';
 import { Input } from './Input';
 
 export function FormRegister() {
-    const { LOGIN_VIEW_STATE } = useLoginView();
+    const { LOGIN_VIEW_STATE, setRegisterFields } = useLoginView();
 
     const [full_name, setFullName] = useState(LOGIN_VIEW_STATE.registerFields.full_name);
     const [username, setUsername] = useState(LOGIN_VIEW_STATE.registerFields.username);
@@ -16,10 +16,8 @@ export function FormRegister() {
     const [passwordError, setPasswordError] = useState(false);
 
     useEffect(() => {
-        LOGIN_VIEW_STATE.registerFields.full_name = full_name;
-        LOGIN_VIEW_STATE.registerFields.username = username;
-        LOGIN_VIEW_STATE.registerFields.email = email;
-    }, [LOGIN_VIEW_STATE.registerFields, full_name, username, email]);
+        setRegisterFields({ full_name, username, email });
+    }, [ setRegisterFields, full_name, username, email ]);
 
     function handleEmailBlur() {
         if (email && confirmEmail && email !== confirmEmail) {

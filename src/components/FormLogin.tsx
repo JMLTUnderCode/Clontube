@@ -3,14 +3,14 @@ import { useLoginView } from '../hooks/useLoginView';
 import { Input } from './Input';
 
 export function FormLogin() {
-    const { LOGIN_VIEW_STATE } = useLoginView();
+    const { LOGIN_VIEW_STATE, setLoginFields } = useLoginView();
 
     const [identifier, setIdentifier] = useState(LOGIN_VIEW_STATE.loginFields.identifier || '');
     const [password, setPassword] = useState('');
 
     useEffect(() => {
-        LOGIN_VIEW_STATE.loginFields.identifier = identifier;
-    }, [LOGIN_VIEW_STATE.loginFields, identifier]);
+        setLoginFields({ identifier });
+    }, [ setLoginFields, identifier ]);
 
     return (
         <form className="login-form">

@@ -1,6 +1,6 @@
-import type { ViewType, LoginViewState, Action } from '../utils/types';
+import type { ViewType, LoginViewStateType, LoginViewActionType } from '../utils/types';
 
-export const loginViewState: LoginViewState = (() => {
+export const loginViewState: LoginViewStateType = (() => {
     const stored = localStorage.getItem('loginViewState');
     if (stored) {
         try {
@@ -28,22 +28,10 @@ export const loginViewState: LoginViewState = (() => {
     };
 })();
 
-export function updateLocalStorageLoginView(state: LoginViewState) {
-    localStorage.setItem('loginViewState', JSON.stringify(state));
-};
-
-export const STATE_ACTION_TYPES = {
-    SET_LOGIN_VIEW: 'SET_LOGIN_VIEW',
-    SET_LOGIN_FIELDS: 'SET_LOGIN_FIELDS',
-    SET_REGISTER_VIEW: 'SET_REGISTER_VIEW',
-    SET_REGISTER_FIELDS: 'SET_REGISTER_FIELDS',
-    RESET_FIELDS: 'RESET_FIELDS',
-};
-
 export function loginViewReducer(
-    state: LoginViewState = loginViewState,
-    action: Action
-): LoginViewState {
+    state: LoginViewStateType = loginViewState,
+    action: LoginViewActionType
+): LoginViewStateType {
     if (!action || !action.type) return state;
 
     let newState = state;
@@ -89,6 +77,5 @@ export function loginViewReducer(
         };
     }
     
-    //updateLocalStorageLoginView(newState);
     return newState;
 };

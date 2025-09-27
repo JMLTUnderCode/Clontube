@@ -1,13 +1,19 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { FormLogin } from './FormLogin';
 import { LoginViewProvider } from '../providers/LoginViewProvider';
+import { AuthenticationProvider } from '../providers/AuthenticationProvider';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('FormLogin component', () => {
     function renderWithProvider() {
         return render(
-            <LoginViewProvider>
-                <FormLogin />
-            </LoginViewProvider>
+            <AuthenticationProvider>
+                <MemoryRouter>
+                    <LoginViewProvider>
+                        <FormLogin />
+                    </LoginViewProvider>
+                </MemoryRouter>
+            </AuthenticationProvider>
         );
     }
 

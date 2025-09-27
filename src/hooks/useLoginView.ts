@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { LoginViewContext } from '../contexts/loginViewContext';
+import { LoginViewContext } from '../contexts/LoginViewContext';
 
 export function useLoginView() {
     const context = useContext(LoginViewContext);

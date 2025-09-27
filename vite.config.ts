@@ -21,3 +21,13 @@ export default defineConfig({
         },
     },
 })
+/*
+server: {
+    proxy: {
+        '/api': {
+            target: 'https://backend-9tcm.onrender.com',
+            changeOrigin: true,
+            secure: false,
+        },
+    }
+} */

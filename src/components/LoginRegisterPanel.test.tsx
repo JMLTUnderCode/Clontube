@@ -1,13 +1,19 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { LoginRegisterPanel } from './LoginRegisterPanel';
 import { LoginViewProvider } from '../providers/LoginViewProvider';
+import { AuthenticationProvider } from '../providers/AuthenticationProvider';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('LoginRegisterPanel component', () => {
     function renderWithProvider() {
         return render(
-            <LoginViewProvider>
-                <LoginRegisterPanel />
-            </LoginViewProvider>
+            <AuthenticationProvider>
+                <MemoryRouter>
+                    <LoginViewProvider>
+                        <LoginRegisterPanel />
+                    </LoginViewProvider>
+                </MemoryRouter>
+            </AuthenticationProvider>
         );
     }
 

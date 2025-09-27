@@ -12,7 +12,6 @@ function useAuthReducer() {
 
     const login = useCallback(async (identifier: string, password: string) => {
         try {
-            //const res = await fetch('/api/login/', {
             const res = await fetch('https://backend-9tcm.onrender.com/api/login/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

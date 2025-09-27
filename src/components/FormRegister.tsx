@@ -3,7 +3,7 @@ import { useLoginView } from '../hooks/useLoginView';
 import { Input } from './Input';
 
 export function FormRegister() {
-    const { LOGIN_VIEW_STATE, setRegisterFields } = useLoginView();
+    const { LOGIN_VIEW_STATE, showLogin, setRegisterFields, clearFields } = useLoginView();
 
     const [full_name, setFullName] = useState(LOGIN_VIEW_STATE.registerFields.full_name);
     const [username, setUsername] = useState(LOGIN_VIEW_STATE.registerFields.username);
@@ -18,6 +18,32 @@ export function FormRegister() {
     useEffect(() => {
         setRegisterFields({ full_name, username, email });
     }, [setRegisterFields, full_name, username, email]);
+
+    async function handleRegister(e: React.FormEvent) {
+        if (emailError || passwordError) return;
+
+        e.preventDefault();
+
+        try {
+            //const res = await fetch('/api/users/', {
+            const res = await fetch('https://backend-9tcm.onrender.com/api/users/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ full_name, username, email, password }),
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                clearFields();
+                // Registro exitoso, redirigir o mostrar mensaje
+                showLogin();
+
+            } else {
+                // Manejar error de registro
+            }
+        } catch {
+            // Manejar error de peticion
+        }
+    }
 
     function handleEmailBlur() {
         if (email && confirmEmail && email !== confirmEmail) {
@@ -52,7 +78,7 @@ export function FormRegister() {
     }
 
     return (
-        <form className="register-form">
+        <form className="register-form" onSubmit={handleRegister}>
             <h2>Registrarse</h2>
             <Input type="FULL_NAME" label="Nombre Completo" field={full_name} onChange={setFullName} />
             <Input type="USERNAME" label="Usuario" field={username} onChange={setUsername} />

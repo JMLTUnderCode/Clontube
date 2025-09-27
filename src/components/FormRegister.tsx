@@ -25,7 +25,6 @@ export function FormRegister() {
         e.preventDefault();
 
         try {
-            //const res = await fetch('/api/users/', {
             const res = await fetch('https://backend-9tcm.onrender.com/api/users/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

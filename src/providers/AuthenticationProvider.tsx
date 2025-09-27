@@ -26,7 +26,8 @@ function useAuthReducer() {
                 dispatch({ type: 'LOGIN_FAILURE' });
                 return false;
             }
-        } catch {
+        } catch (error) {
+            console.error('Login error:', error);
             dispatch({ type: 'LOGIN_FAILURE' });
             return false;
         }

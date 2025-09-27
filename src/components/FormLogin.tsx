@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginView } from '../hooks/useLoginView';
-import { useAuth } from '../hooks/useAuth';
+import { useAuthentication } from '../hooks/useAuthentication';
 import { Input } from './Input';
 
 export function FormLogin() {
     const navigate = useNavigate();
     const { LOGIN_VIEW_STATE, setLoginFields } = useLoginView();
-    const { login } = useAuth();
+    const { login } = useAuthentication();
 
     const [identifier, setIdentifier] = useState(LOGIN_VIEW_STATE.loginFields.identifier || '');
     const [password, setPassword] = useState('');
